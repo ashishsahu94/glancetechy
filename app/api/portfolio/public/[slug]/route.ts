@@ -3,7 +3,7 @@ import dbConnect from "@/lib/dbConnect";
 import Portfolio from "@/models/Portfolio";
 
 export async function GET(
-  _req: Request,
+  req: Request,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   await dbConnect();
@@ -16,7 +16,10 @@ export async function GET(
   });
 
   if (!portfolio) {
-    return NextResponse.json({ error: "Portfolio not found" }, { status: 404 });
+    return NextResponse.json(
+      { error: "Portfolio not found" },
+      { status: 404 }
+    );
   }
 
   return NextResponse.json(portfolio);
