@@ -1,26 +1,20 @@
-import { NextResponse } from 'next/server'
-import dbConnect from '@/lib/dbConnect'
-import Portfolio from '@/models/Portfolio'
+import { NextResponse } from "next/server";
+import dbConnect from "@/lib/dbConnect";
+import Portfolio from "@/models/Portfolio";
 
-export async function GET(
-  req: Request,
-  { params }: { params: Promise<{ slug: string }> }
-) {
-  await dbConnect()
+export async function GET() {
+  try {
+    await dbConnect();
 
-  const { slug } = await params
+    const portfolios = await Portfolio.find({
+      status: "published",
+    }).sort({ createdAt: -1 });
 
-  const portfolio = await Portfolio.findOne({
-    slug,
-    status: 'published',
-  })
-
-  if (!portfolio) {
+    return NextResponse.json(portfolios);
+  } catch (error) {
     return NextResponse.json(
-      { error: 'Portfolio not found' },
-      { status: 404 }
-    )
+      { error: "Failed to fetch portfolios" },
+      { status: 500 }
+    );
   }
-
-  return NextResponse.json(portfolio)
 }
