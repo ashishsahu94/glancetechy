@@ -1,4 +1,4 @@
-@import "tailwindcss";
+
 
 :root {
   --background: #ffffff;
@@ -19,8 +19,68 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+.mySwiper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.mySwiper .swiper-wrapper {
+  display: flex !important;
+}
+
+.mySwiper .swiper-slide {
+  flex-shrink: 0 !important;
+  width: 100%;
+}
+
+.test-slide {
+  height: 300px;
+  background: #111;
+  color: #fff;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+.globe-page {
+  width: 100%;
+  height: 100vh;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(20, 35, 90, 0.45), transparent 35%),
+    radial-gradient(circle at 18% 50%, rgba(35, 80, 255, 0.25), transparent 32%),
+    #02030a;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.globe-stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(#ffffff 1px, transparent 1px),
+    radial-gradient(#7f8cff 1px, transparent 1px),
+    radial-gradient(#ffffff 1.5px, transparent 1.5px);
+  background-size: 120px 120px, 180px 180px, 260px 260px;
+  background-position: 0 0, 50px 80px, 120px 40px;
+  opacity: 0.5;
+}
+
+.globe-wrapper {
+  position: relative;
+  z-index: 2;
+  transform: translateY(12%);
+}
+
+.globe-canvas {
+  width: 500px;
+  height: 500px;
+  display: block;
 }
