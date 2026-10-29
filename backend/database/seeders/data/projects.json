@@ -1,0 +1,66 @@
+[
+  {
+    "title": "Business Website",
+    "category": "Corporate Website Design",
+    "href": "https://example.com/business",
+    "bg": "#0f1d3a",
+    "img": "/assets/project/project01.webp",
+    "featured": true
+  },
+  {
+    "title": "Food Delivery App",
+    "category": "Website Design & Development",
+    "href": "https://example.com/food",
+    "bg": "#2a1408",
+    "img": "/assets/project/project02.webp",
+    "featured": true
+  },
+  {
+    "title": "E-commerce Website",
+    "category": "Web Development",
+    "href": "https://example.com/store",
+    "bg": "#e9e3d8",
+    "img": "/assets/project/project03.webp",
+    "featured": true
+  },
+  {
+    "title": "Marketing Agency",
+    "category": "Website Design & Development",
+    "href": "https://example.com/agency",
+    "bg": "#1a1038",
+    "img": "/assets/project/project04.webp",
+    "featured": true
+  },
+  {
+    "title": "Real Estate Portal",
+    "category": "Web Development",
+    "href": "https://example.com/realestate",
+    "bg": "#10231c",
+    "img": "/assets/project/project05.webp",
+    "featured": false
+  },
+  {
+    "title": "Fitness Studio",
+    "category": "Website Design & Development",
+    "href": "https://example.com/fitness",
+    "bg": "#1f1a0e",
+    "img": "/assets/project/project06.webp",
+    "featured": false
+  },
+  {
+    "title": "Education Platform",
+    "category": "Web Application",
+    "href": "https://example.com/edu",
+    "bg": "#13203a",
+    "img": "/assets/project/project07.webp",
+    "featured": false
+  },
+  {
+    "title": "Restaurant Website",
+    "category": "Corporate Website Design",
+    "href": "https://example.com/restaurant",
+    "bg": "#2b1410",
+    "img": "/assets/project/project08.webp",
+    "featured": false
+  }
+]

@@ -1,0 +1,8 @@
+<FilesMatch "^(\..*|artisan|composer\.(json|lock)|.*\.(sql|log|md|env|example))$">
+    Require all denied
+</FilesMatch>
+<IfModule mod_headers.c>
+    SetEnvIfNoCase Origin "^http://(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+)(:\d+)?$" CORS_ORIGIN=$0
+    Header always set Access-Control-Allow-Origin "%{CORS_ORIGIN}e" env=CORS_ORIGIN
+    Header always set Vary "Origin" env=CORS_ORIGIN
+</IfModule>

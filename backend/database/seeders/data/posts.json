@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "seo-basics",
+    "title": "SEO Basics: How to Rank Higher on Google in 2026",
+    "category": "SEO & Content",
+    "date": "2026-09-28",
+    "excerpt": "The simple foundations that move your site up the search results.",
+    "art": "seo",
+    "image": "",
+    "content": [
+      "Ranking starts with understanding what your customers search for. Build pages around those questions and answer them clearly.",
+      "Fast loading, clean structure and useful content do more for your rankings than any trick."
+    ]
+  },
+  {
+    "slug": "website-speed",
+    "title": "Website Speed vs Conversions: Why Every Second Counts",
+    "category": "Web Design & Development",
+    "date": "2026-09-22",
+    "excerpt": "Slow pages lose visitors. Here is what to fix first.",
+    "art": "speed",
+    "image": "",
+    "content": [
+      "Visitors leave slow websites quickly. Even a one second delay can reduce sign-ups and sales.",
+      "Compress images, reduce scripts and use a fast host. Measure again after every change."
+    ]
+  },
+  {
+    "slug": "ppc-budgeting",
+    "title": "PPC Budgeting for Small Businesses: Where to Spend First",
+    "category": "Paid Ads & Marketing",
+    "date": "2026-09-15",
+    "excerpt": "Start small, test fast and put money behind what works.",
+    "art": "ppc",
+    "image": "",
+    "content": [
+      "Begin with one clear goal and a small daily budget. Test a few ads before you scale anything.",
+      "Track cost per lead, not clicks. Move budget to the campaigns that bring real customers."
+    ]
+  },
+  {
+    "slug": "social-media-content-plan",
+    "title": "A Simple Social Media Content Plan You Can Actually Follow",
+    "category": "Social Media",
+    "date": "2026-09-08",
+    "excerpt": "Plan a month of posts without burning out.",
+    "art": "social",
+    "image": "",
+    "content": [
+      "Pick two or three content themes and post on a steady schedule rather than every day.",
+      "Reuse your best posts in new formats, and reply to every comment in the first hour."
+    ]
+  },
+  {
+    "slug": "email-marketing-basics",
+    "title": "Email Marketing Basics: Turn Subscribers into Loyal Customers",
+    "category": "Email Marketing",
+    "date": "2026-08-30",
+    "excerpt": "The emails every small business should send first.",
+    "art": "email",
+    "image": "",
+    "content": [
+      "Start with a welcome email, then share useful tips before you ask for a sale.",
+      "Keep subject lines short and honest, and clean your list every few months."
+    ]
+  },
+  {
+    "slug": "write-copy-that-converts",
+    "title": "Write Website Copy That Speaks to Your Audience and Converts",
+    "category": "Content Writing",
+    "date": "2026-08-21",
+    "excerpt": "Clear words beat clever ones, every time.",
+    "art": "content",
+    "image": "",
+    "content": [
+      "Lead with the benefit to the reader. Say what you do, who it is for and what to do next.",
+      "Use short sentences and one clear call to action on every page."
+    ]
+  }
+]

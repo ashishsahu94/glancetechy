@@ -1,0 +1,95 @@
+# Static export on Apache (shared hosting)
+Options -Indexes
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Force https + non-www in ONE redirect (www.glancetechy.com -> glancetechy.com)
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # ---------------------------------------------------------------
+  # RENAMED SECTION: /service-areas/...  ->  /agency/...  (301)
+  # Keeps old links and Google rankings. Must stay ABOVE the .html / blog rules.
+  # ---------------------------------------------------------------
+  RewriteRule ^service-areas/?$      /agency/    [R=301,L]
+  RewriteRule ^service-areas/(.+)$   /agency/$1  [R=301,L]
+
+  # ---------------------------------------------------------------
+  # OLD SITE URLs
+  # ---------------------------------------------------------------
+
+  # Old blog post page: /blog-details(.html)?slug=xyz  ->  /blog/xyz/
+  RewriteCond %{QUERY_STRING} (?:^|&)slug=([A-Za-z0-9._-]+)(?:&|$)
+  RewriteRule ^blog-details(\.html)?/?$ /blog/%1/? [R=301,L]
+  RewriteRule ^blog-details(\.html)?/?$ /blog/ [R=301,L]
+
+  # Old main pages that have a new page (301 = moved permanently)
+  RewriteRule ^index\.html$        /          [R=301,L]
+  RewriteRule ^about(-us)?\.html$  /about/    [R=301,L]
+  RewriteRule ^services?\.html$    /services/ [R=301,L]
+  RewriteRule ^portfolio\.html$    /portfolio/ [R=301,L]
+  RewriteRule ^blog\.html$         /blog/     [R=301,L]
+  RewriteRule ^faq\.html$          /faq/      [R=301,L]
+  RewriteRule ^contact(-us)?\.html$ /contact/ [R=301,L]
+
+  # Old URLs reported as 404 in Google Search Console
+  RewriteRule ^index/?$                     /          [R=301,L]
+  RewriteRule ^terms-and-conditions\.html$  /terms/    [R=301,L]
+  RewriteRule ^digital-marketing/?$         /services/ [R=301,L]
+  RewriteRule ^privacy-policy\.html$        /privacy/  [R=301,L]
+
+  # Old WordPress feed URLs: no such page any more -> 410 Gone
+  RewriteRule ^(comments/)?feed/?$          - [G,L]
+
+  # Any other old .html page that no longer exists -> 410 Gone
+  # (tells Google the page was removed on purpose, so it drops it sooner)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^.+\.html$ - [G,L]
+
+  # Add more removed pages here, for example:
+  # RewriteRule ^old-folder/(.*)$ - [G,L]
+
+  # ---------------------------------------------------------------
+
+  # ---------------------------------------------------------------
+  # Markdown for AI agents: when a client sends  Accept: text/markdown
+  # serve the index.md that scripts/make-markdown.mjs wrote at build time.
+  # Normal browsers (Accept: text/html) are not affected.
+  # ---------------------------------------------------------------
+  RewriteCond %{HTTP:Accept} text/markdown [NC]
+  RewriteCond %{REQUEST_URI} ^(.*/)$
+  RewriteCond %{DOCUMENT_ROOT}%1index.md -f
+  RewriteRule ^ %1index.md [L,T=text/markdown]
+
+  # Blog posts published after the last build have no pre-built folder.
+  # Serve the fallback shell; it reads the slug from the URL and calls the API.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^blog/[^/]+/?$ /blog/_/index.html [L]
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+</IfModule>
+<IfModule mod_mime.c>
+  AddType text/markdown .md
+  AddCharset UTF-8 .md
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Responses differ by the Accept header (HTML vs Markdown): tell caches.
+  Header append Vary Accept
+
+  # Machine-readable pointers for agents (shown in the response headers)
+  Header always set Link "</llms.txt>; rel=\"describedby\"; type=\"text/plain\", </sitemap.xml>; rel=\"sitemap\"; type=\"application/xml\""
+</IfModule>

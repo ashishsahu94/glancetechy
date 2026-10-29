@@ -1,0 +1,681 @@
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+
+/* =========================================================
+   BRAND COLORS - the single place to change the site's colors.
+   Every component uses these as Tailwind classes:
+   bg-primary, text-ink, border-line, hover:bg-navy-hover ...
+   Change a value here and it updates on every page.
+========================================================= */
+@theme {
+  /* Brand */
+  --color-primary: #2be4ac;        /* mint green: buttons, highlights */
+  --color-primary-dark: #0b6b58;   /* dark mint: text on light mint */
+  --color-accent: #d9f94b;         /* lime accent */
+  --color-accent-strong: #c8e63c;  /* lime, hover / emphasis */
+
+  /* Text & dark surfaces */
+  --color-ink: #14142d;            /* headings, main dark */
+  --color-ink-soft: #33335e;       /* nav links */
+  --color-navy: #0b1b2b;           /* dark sections, footer */
+  --color-navy-hover: #132b40;
+  --color-night: #0f0f0f;          /* near-black text on bright buttons */
+  --color-night-2: #232326;
+  --color-charcoal: #35363b;       /* dark buttons / cards */
+  --color-charcoal-dark: #2b2c31;
+  --color-muted: #4b4f58;          /* secondary text */
+
+  /* Light surfaces & lines */
+  --color-surface: #ebeff5;        /* light panels / section background */
+  --color-soft: #f4f6fa;           /* blog / card background */
+  --color-line: #cccccc;           /* borders */
+
+  /* Page frame behind the rounded sections */
+  --color-page: #ffffff;
+
+  /* Third party */
+  --color-whatsapp: #25d366;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+.animate-float {
+  animation: float-y 3s ease-in-out infinite;
+}
+
+/* @media (prefers-reduced-motion: reduce) {
+  .animate-float { animation: none; }
+} */
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.animate-reveal {
+  animation: reveal-up 700ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+/* @media (prefers-reduced-motion: reduce) {
+  .animate-reveal { animation: none; }
+} */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+
+@keyframes reveal-blur {
+  from { opacity: 0; transform: translateY(24px); filter: blur(12px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+
+.animate-reveal-blur {
+  animation: reveal-blur 900ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-reveal-blur { animation: none; }
+}
+
+/* =========================================================
+   MOTION - scroll reveal, page fade, loading skeleton.
+   Use  data-reveal  on any element ("up" default, or
+   data-reveal="fade|scale|left|right") and optionally
+   data-reveal-delay="150" (ms). The <RevealObserver /> in
+   the root layout adds .is-visible when it scrolls into view.
+   Everything is switched off for prefers-reduced-motion.
+========================================================= */
+@keyframes reveal-fade  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes reveal-scale { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: none; } }
+@keyframes reveal-left  { from { opacity: 0; transform: translateX(-36px); } to { opacity: 1; transform: none; } }
+@keyframes reveal-right { from { opacity: 0; transform: translateX(36px); } to { opacity: 1; transform: none; } }
+@keyframes page-in      { from { opacity: 0; } to { opacity: 1; } }
+@keyframes shimmer      { 100% { transform: translateX(100%); } }
+
+/* Elements are hidden only when JS runs (class "js" is set in <head>) */
+.js [data-reveal] { opacity: 0; }
+.js [data-reveal].is-visible {
+  animation: reveal-up 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+.js [data-reveal="fade"].is-visible  { animation-name: reveal-fade; }
+.js [data-reveal="scale"].is-visible { animation-name: reveal-scale; }
+.js [data-reveal="left"].is-visible  { animation-name: reveal-left; }
+.js [data-reveal="right"].is-visible { animation-name: reveal-right; }
+
+.animate-page { animation: page-in 350ms ease-out both; }
+
+/* Loading placeholder: <div class="skeleton h-40 rounded-3xl" /> */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: rgb(226 232 240 / 0.7);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.65), transparent);
+  animation: shimmer 1.4s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; }
+  .js [data-reveal].is-visible,
+  .animate-page { animation: none; }
+  .skeleton::after { animation: none; }
+}
+
+/* Safety net: a stray decorative element can never create a sideways scrollbar.
+   (clip, unlike hidden, keeps position: sticky working) */
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  background: var(--color-page);
+  color: var(--color-white);
+  font-family: var(--font-inter), sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-manrope), sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   BLOG CONTENT
+========================================================= */
+
+.blog-content {
+  width: 100%;
+  max-width: 100%;
+  color: #4b4b6b;
+  font-family: inherit;
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+/* =========================================================
+   GOOGLE DOCS CLEANUP
+========================================================= */
+
+/* Google Docs outer wrappers */
+.blog-content > b,
+.blog-content > strong {
+  font-weight: inherit !important;
+}
+
+/* Reset Google Docs inline typography */
+.blog-content span {
+  font-family: inherit !important;
+  color: inherit !important;
+  background-color: transparent !important;
+  font-size: inherit !important;
+  line-height: inherit;
+}
+
+/* Google Docs generated bold wrappers */
+.blog-content b {
+  font-weight: inherit;
+}
+
+/* Real bold content should remain bold */
+.blog-content strong,
+.blog-content b strong,
+.blog-content b span[style*="font-weight:700"],
+.blog-content span[style*="font-weight:700"] {
+  color: #14142d !important;
+  font-weight: 700 !important;
+}
+
+/* =========================================================
+   PARAGRAPH
+========================================================= */
+
+.blog-content p {
+  margin: 0 0 1.4rem !important;
+  color: #4b4b6b !important;
+  font-family: inherit !important;
+  font-size: 17px !important;
+  line-height: 1.85 !important;
+}
+
+/* First paragraph */
+.blog-content > p:first-child {
+  margin-top: 0 !important;
+}
+
+/* =========================================================
+   HEADINGS
+========================================================= */
+
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+  color: #14142d !important;
+  font-family: inherit !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em;
+  line-height: 1.25 !important;
+  padding: 0 !important;
+}
+
+/* H1 */
+.blog-content h1 {
+  margin: 2.75rem 0 1.2rem !important;
+  font-size: 2.5rem !important;
+}
+
+/* H2 */
+.blog-content h2 {
+  margin: 2.75rem 0 1rem !important;
+  font-size: 2rem !important;
+}
+
+/* H3 */
+.blog-content h3 {
+  margin: 2.25rem 0 0.85rem !important;
+  font-size: 1.55rem !important;
+}
+
+/* H4 */
+.blog-content h4 {
+  margin: 2rem 0 0.75rem !important;
+  font-size: 1.3rem !important;
+}
+
+/* H5 */
+.blog-content h5 {
+  margin: 1.75rem 0 0.65rem !important;
+  font-size: 1.15rem !important;
+}
+
+/* H6 */
+.blog-content h6 {
+  margin: 1.5rem 0 0.6rem !important;
+  font-size: 1rem !important;
+}
+
+/* =========================================================
+   HEADING FIRST CHILD
+========================================================= */
+
+.blog-content > h1:first-child,
+.blog-content > h2:first-child,
+.blog-content > h3:first-child,
+.blog-content > h4:first-child {
+  margin-top: 0 !important;
+}
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+.blog-content a {
+  color: #27daaf !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease;
+}
+
+.blog-content a:hover {
+  color: #27daaf !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+/* =========================================================
+   BOLD
+========================================================= */
+
+.blog-content strong,
+.blog-content b {
+  color: #14142d !important;
+  font-weight: 700 !important;
+}
+
+/* Google Docs creates <b><span>...</span></b> */
+.blog-content b span {
+  font-weight: inherit !important;
+}
+
+.blog-content b > span[style*="font-weight:700"] {
+  font-weight: 700 !important;
+}
+
+/* =========================================================
+   LIST
+========================================================= */
+
+.blog-content ul {
+  margin: 1.3rem 0 1.75rem !important;
+  padding-left: 1.8rem !important;
+  list-style-type: disc !important;
+}
+
+.blog-content ol {
+  margin: 1.3rem 0 1.75rem !important;
+  padding-left: 1.8rem !important;
+  list-style-type: decimal !important;
+}
+
+/* =========================================================
+   LIST ITEM
+========================================================= */
+
+.blog-content li {
+  margin: 0.45rem 0 !important;
+  padding-left: 0.35rem !important;
+  color: #4b4b6b !important;
+  font-size: 17px !important;
+  line-height: 1.8 !important;
+}
+
+.blog-content li::marker {
+  color: #27daaf;
+  font-weight: 700;
+}
+
+/* Google Docs puts <p> inside li */
+.blog-content li p {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  color: inherit !important;
+}
+
+/* =========================================================
+   BLOCKQUOTE
+========================================================= */
+
+.blog-content blockquote {
+  margin: 2rem 0 !important;
+  padding: 1.2rem 1.4rem !important;
+  border-left: 4px solid #27daaf !important;
+  border-radius: 0 14px 14px 0;
+  background: rgba(24, 185, 191, 0.06);
+  color: #33335e !important;
+}
+
+.blog-content blockquote p {
+  margin: 0 !important;
+  color: #33335e !important;
+  font-style: italic;
+}
+
+/* =========================================================
+   HORIZONTAL LINE
+========================================================= */
+
+.blog-content hr {
+  margin: 2.5rem 0 !important;
+  border: 0 !important;
+  border-top: 1px solid #e5e7eb !important;
+}
+
+/* =========================================================
+   IMAGES
+========================================================= */
+
+.blog-content img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 2rem auto !important;
+  border-radius: 18px;
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.blog-content table {
+  margin: 2rem 0 !important;
+  border-collapse: collapse;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.blog-content th {
+  padding: 14px 16px !important;
+  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  color: #14142d !important;
+  font-weight: 700 !important;
+  text-align: left;
+}
+
+.blog-content td {
+  padding: 14px 16px !important;
+  border: 1px solid #e5e7eb;
+  color: #4b4b6b !important;
+}
+
+/* =========================================================
+   CODE
+========================================================= */
+
+.blog-content code {
+  padding: 3px 7px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #f5f7f9;
+  color: #14142d;
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
+  font-size: 0.88em;
+}
+
+.blog-content pre {
+  margin: 1.75rem 0 !important;
+  padding: 1.25rem !important;
+  overflow-x: auto;
+  border-radius: 14px;
+  background: #111827;
+  color: #f8fafc;
+}
+
+.blog-content pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+/* =========================================================
+   TEXT DECORATION
+========================================================= */
+
+.blog-content u {
+  text-underline-offset: 3px;
+}
+
+.blog-content s {
+  opacity: 0.7;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+  .blog-content {
+    font-size: 16px;
+  }
+
+  .blog-content p,
+  .blog-content li {
+    font-size: 16px !important;
+    line-height: 1.8 !important;
+  }
+
+  .blog-content h1 {
+    font-size: 2rem !important;
+    margin-top: 2rem !important;
+  }
+
+  .blog-content h2 {
+    font-size: 1.6rem !important;
+    margin-top: 2.25rem !important;
+  }
+
+  .blog-content h3 {
+    font-size: 1.35rem !important;
+    margin-top: 2rem !important;
+  }
+
+  .blog-content ul,
+  .blog-content ol {
+    padding-left: 1.4rem !important;
+  }
+
+  .blog-content blockquote {
+    padding: 1rem !important;
+  }
+
+  .blog-content img {
+    border-radius: 12px;
+  }
+
+  .blog-content table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+/* =========================================================
+   BLOG POLISH (reading experience)
+========================================================= */
+
+.blog-content {
+  font-size: 18px;
+  hyphens: auto;
+  overflow-wrap: anywhere;
+}
+
+/* Lead paragraph */
+.blog-content > p:first-of-type {
+  font-size: 20px !important;
+  line-height: 1.8 !important;
+  color: #33335e !important;
+}
+
+.blog-content p,
+.blog-content li {
+  font-size: 18px !important;
+}
+
+/* H2: clear section break with a short brand underline */
+.blog-content h3 {
+  position: relative;
+  margin-top: 3.25rem !important;
+  padding-bottom: 0.9rem !important;
+  font-size: 1.85rem !important;
+}
+.blog-content h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 56px;
+  height: 4px;
+  border-radius: 4px;
+  background: #27daaf;
+}
+.blog-content h3 {
+  font-size: 1.4rem !important;
+}
+
+/* Lists: custom dots, tighter rhythm */
+.blog-content ul {
+  list-style: none !important;
+  padding-left: 0.25rem !important;
+}
+.blog-content ul > li {
+  position: relative;
+  padding-left: 1.6rem !important;
+}
+.blog-content ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+.blog-content ul > li::marker {
+  content: "";
+}
+.blog-content ol > li::marker {
+  color: var(--color-primary-dark);
+}
+
+/* Links: readable on white */
+.blog-content a {
+  color: var(--color-primary-dark) !important;
+  font-weight: 600 !important;
+  text-decoration: underline !important;
+  text-decoration-color: rgba(43, 228, 172, 0.7);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.blog-content a:hover {
+  color: var(--color-ink) !important;
+  text-decoration-color: var(--color-primary);
+}
+
+/* Quote card */
+.blog-content blockquote {
+  position: relative;
+  border-left: 0 !important;
+  border-radius: 20px !important;
+  background: var(--color-soft) !important;
+  padding: 1.6rem 1.6rem 1.6rem 3.4rem !important;
+}
+.blog-content blockquote::before {
+  content: "\201C";
+  position: absolute;
+  left: 1.1rem;
+  top: 0.6rem;
+  font-size: 3.2rem;
+  line-height: 1;
+  color: var(--color-primary);
+  font-family: Georgia, serif;
+}
+
+/* Images + tables */
+.blog-content img {
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(20, 20, 45, 0.08);
+}
+.blog-content table {
+  overflow-x: auto;
+  white-space: normal;
+  border-radius: 14px;
+}
+.blog-content tr:nth-child(even) td {
+  background: #fafbfc;
+}
+
+@media (max-width: 768px) {
+  .blog-content { font-size: 16.5px; }
+  .blog-content > p:first-of-type { font-size: 18px !important; }
+  .blog-content p,
+  .blog-content li { font-size: 16.5px !important; }
+  .blog-content h2 { font-size: 1.55rem !important; margin-top: 2.5rem !important; }
+}
